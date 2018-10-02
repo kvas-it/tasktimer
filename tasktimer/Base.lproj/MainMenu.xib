@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -15,28 +16,46 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="tasktimer" customModuleProvider="target"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <slider verticalHuggingPriority="750" id="9OX-2u-Tn9">
-            <rect key="frame" x="0.0" y="0.0" width="96" height="21"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="xJ2-Ai-MTG"/>
-            <connections>
-                <action selector="sliderChanged:" target="Qxg-D4-fL9" id="DgW-fJ-vWd"/>
-            </connections>
-        </slider>
         <menu id="MWG-4L-eEi">
             <items>
-                <menuItem title="Set timer for 25 minutes" id="MPE-4e-Hnt">
+                <menuItem title="+/-" id="E9e-zf-kk7">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="startClicked:" target="Qxg-D4-fL9" id="hIT-Ln-Kga"/>
+                        <outlet property="view" destination="5bU-C0-uI8" id="zeN-JO-QC4"/>
                     </connections>
                 </menuItem>
-                <menuItem title="----|----" id="dcR-vo-9NE">
+                <menuItem isSeparatorItem="YES" id="3ZX-n4-6hv"/>
+                <menuItem title="5 minutes" id="nNJ-gT-C9V">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <outlet property="view" destination="9OX-2u-Tn9" id="CdA-OQ-chu"/>
+                        <action selector="startFive:" target="Qxg-D4-fL9" id="Q5t-nE-Idl"/>
                     </connections>
                 </menuItem>
+                <menuItem title="10 minutes" id="Tmd-xF-y1a">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="startTen:" target="Qxg-D4-fL9" id="eja-bo-jkw"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="25 minutes" id="uLg-ps-YLM">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="startTwentyFive:" target="Qxg-D4-fL9" id="wKg-rW-RbX"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="45 minutes" id="hbe-Ap-Pmv">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="startFortyFive:" target="Qxg-D4-fL9" id="yqo-LY-0wx"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Cancel timer" id="I52-A8-h8x">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="cancelTimer:" target="Qxg-D4-fL9" id="IxZ-9M-CxG"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="GeH-Yp-ZWD"/>
                 <menuItem title="Quit" id="H7E-hm-JKs">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -44,13 +63,88 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="206" y="-10"/>
         </menu>
         <customObject id="Qxg-D4-fL9" customClass="StatusMenuController" customModule="tasktimer" customModuleProvider="target">
             <connections>
-                <outlet property="intervalSlider" destination="9OX-2u-Tn9" id="8bq-2o-DJx"/>
                 <outlet property="statusMenu" destination="MWG-4L-eEi" id="jir-Uq-59p"/>
-                <outlet property="timerInterval" destination="MPE-4e-Hnt" id="jhK-Hc-Nlo"/>
             </connections>
         </customObject>
+        <comboBox verticalHuggingPriority="750" id="UYf-Qd-hyr">
+            <rect key="frame" x="0.0" y="0.0" width="93" height="26"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="minutes" buttonBordered="NO" numberOfVisibleItems="7" id="jmD-Vx-IOr">
+                <font key="font" metaFont="system"/>
+                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                <objectValues>
+                    <string>Item 2</string>
+                    <string>Item 3</string>
+                    <string>Item</string>
+                    <string>Item</string>
+                </objectValues>
+            </comboBoxCell>
+            <point key="canvasLocation" x="-116" y="157"/>
+        </comboBox>
+        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" id="5bU-C0-uI8">
+            <rect key="frame" x="0.0" y="0.0" width="216" height="32"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="shU-yx-YvX">
+                    <rect key="frame" x="4" y="-1" width="55" height="32"/>
+                    <buttonCell key="cell" type="push" title="-5" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="cMl-3G-lou">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="minusFive:" target="Qxg-D4-fL9" id="kbE-lV-bwD"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w0W-XN-z96">
+                    <rect key="frame" x="55" y="-1" width="53" height="32"/>
+                    <buttonCell key="cell" type="push" title="-1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GWO-cs-eMv">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="minusOne:" target="Qxg-D4-fL9" id="oRg-Mw-cA5"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Uq1-tb-9zd">
+                    <rect key="frame" x="104" y="-1" width="55" height="32"/>
+                    <buttonCell key="cell" type="push" title="+1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TfZ-Io-MYB">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="plusOne:" target="Qxg-D4-fL9" id="YD6-ft-iUb"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jDD-Zi-fWA">
+                    <rect key="frame" x="155" y="-1" width="57" height="32"/>
+                    <buttonCell key="cell" type="push" title="+5" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="blh-xe-vvG">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="plusFive:" target="Qxg-D4-fL9" id="gvO-wN-wh9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <edgeInsets key="edgeInsets" left="10" right="10" top="5" bottom="5"/>
+            <visibilityPriorities>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+                <integer value="1000"/>
+            </visibilityPriorities>
+            <customSpacing>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+                <real value="3.4028234663852886e+38"/>
+            </customSpacing>
+            <point key="canvasLocation" x="8" y="-66"/>
+        </stackView>
     </objects>
 </document>

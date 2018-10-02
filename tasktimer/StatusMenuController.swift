@@ -11,32 +11,47 @@ import Cocoa
 class StatusMenuController: NSObject {
 
     @IBOutlet weak var statusMenu: NSMenu!
-    @IBOutlet weak var intervalSlider: NSSlider!
-    @IBOutlet weak var timerInterval: NSMenuItem!
 
     let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     var timer = CountdownTimer();
-    var interval = 0;
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         NSApplication.shared().terminate(self)
     }
-
-    @IBAction func sliderChanged(_ sender: NSSlider) {
-        let minutes = Int(pow(8.0, sender.doubleValue) * 12.5)
-        interval = minutes * 60
-        if (minutes == 1) {
-            timerInterval.title = "Set timer for one minute"
-        } else {
-            timerInterval.title = "Set timer for " + String(minutes) + " minutes"
-        }
+    @IBAction func startFive(_ sender: NSMenuItem) {
+        timer.start(minutes: 5)
     }
 
-    @IBAction func startClicked(_ sender: NSMenuItem) {
-        if (interval == 60) {
-            interval = 5
-        }
-        timer.start(interval: interval, callback: {self.updateRemaining(seconds: $0)})
+    @IBAction func startTen(_ sender: NSMenuItem) {
+        timer.start(minutes: 10)
+    }
+
+    @IBAction func startTwentyFive(_ sender: NSMenuItem) {
+        timer.start(minutes: 25)
+    }
+
+    @IBAction func startFortyFive(_ sender: NSMenuItem) {
+        timer.start(minutes: 45)
+    }
+
+    @IBAction func minusFive(_ sender: NSButton) {
+        timer.adjust(minutes: -5)
+    }
+
+    @IBAction func minusOne(_ sender: NSButton) {
+        timer.adjust(minutes: -1)
+    }
+
+    @IBAction func plusFive(_ sender: NSButton) {
+        timer.adjust(minutes: 5)
+    }
+
+    @IBAction func plusOne(_ sender: NSButton) {
+        timer.adjust(minutes: 1)
+    }
+
+    @IBAction func cancelTimer(_ sender: NSMenuItem) {
+        timer.stop()
     }
 
     func updateRemaining(seconds: Int) {
@@ -54,11 +69,7 @@ class StatusMenuController: NSObject {
         icon?.isTemplate = true // best for dark mode
         statusItem.image = icon
         statusItem.menu = statusMenu
-        intervalSlider.setFrameSize(NSSize(width: 300, height: 25))
-        intervalSlider.minValue = -1.0
-        intervalSlider.maxValue = 1.0
-        intervalSlider.doubleValue = 0.35 // 25 minutes
-        sliderChanged(intervalSlider)
+        timer.setUpdateCallback(callback: {self.updateRemaining(seconds: $0)})
     }
 
 }

@@ -14,10 +14,13 @@ class CountdownTimer {
     var updateCallback: (Int) -> Void = {_ in }
     lazy var timer = Timer()
 
-    func start(interval: Int, callback: @escaping (Int) -> Void) {
-        timer.invalidate()
-        remaining = interval
+    func setUpdateCallback(callback: @escaping (Int) -> Void) {
         updateCallback = callback
+    }
+
+    func start(minutes: Int) {
+        stop()
+        remaining = minutes * 60
         updateCallback(remaining)
         timer = Timer.scheduledTimer(
             timeInterval: 1.0,
@@ -28,11 +31,28 @@ class CountdownTimer {
         )
     }
 
+    func stop() {
+        remaining = 0
+        timer.invalidate()
+        updateCallback(remaining)
+    }
+
+    func adjust(minutes: Int) {
+        if remaining == 0 {
+            if minutes > 0 {
+                start(minutes: minutes)
+            }
+        } else {
+            remaining += minutes * 60
+            updateCallback(remaining)
+        }
+    }
+
     @objc func tick() {
         remaining -= 1
-        updateCallback(remaining)
         if (remaining <= 0) {
-            timer.invalidate()
+            stop()
         }
+        updateCallback(remaining)
     }
 }
