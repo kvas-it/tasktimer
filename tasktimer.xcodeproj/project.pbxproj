@@ -10,6 +10,8 @@
 		A85B61CE2163BDAC0036D982 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85B61CD2163BDAC0036D982 /* AppDelegate.swift */; };
 		A85B61D02163BDAC0036D982 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A85B61CF2163BDAC0036D982 /* Assets.xcassets */; };
 		A85B61D32163BDAC0036D982 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A85B61D12163BDAC0036D982 /* MainMenu.xib */; };
+		A85B61DB2163C0EB0036D982 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85B61DA2163C0EB0036D982 /* StatusMenuController.swift */; };
+		A85B61DD2163C36D0036D982 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85B61DC2163C36D0036D982 /* CountdownTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +20,8 @@
 		A85B61CF2163BDAC0036D982 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A85B61D22163BDAC0036D982 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A85B61D42163BDAC0036D982 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A85B61DA2163C0EB0036D982 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		A85B61DC2163C36D0036D982 /* CountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 				A85B61CF2163BDAC0036D982 /* Assets.xcassets */,
 				A85B61D12163BDAC0036D982 /* MainMenu.xib */,
 				A85B61D42163BDAC0036D982 /* Info.plist */,
+				A85B61DA2163C0EB0036D982 /* StatusMenuController.swift */,
+				A85B61DC2163C36D0036D982 /* CountdownTimer.swift */,
 			);
 			path = tasktimer;
 			sourceTree = "<group>";
@@ -129,6 +135,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A85B61DD2163C36D0036D982 /* CountdownTimer.swift in Sources */,
+				A85B61DB2163C0EB0036D982 /* StatusMenuController.swift in Sources */,
 				A85B61CE2163BDAC0036D982 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
