@@ -6,9 +6,8 @@
       "scale" : "1x"
     },
     {
+      "idiom" : "mac",
       "size" : "16x16",
-      "idiom" : "mac",
-      "filename" : "StatusBarButtonImage@2x.png",
       "scale" : "2x"
     },
     {
@@ -32,8 +31,9 @@
       "scale" : "2x"
     },
     {
-      "idiom" : "mac",
       "size" : "256x256",
+      "idiom" : "mac",
+      "filename" : "tasktimer-256.png",
       "scale" : "1x"
     },
     {
