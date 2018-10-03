@@ -13,10 +13,15 @@ class CountdownTimer {
     var end = 0
     var total = 0
     var updateCallback: (Int, Double) -> Void = {_ in }
+    var doneCallback: () -> Void = {_ in }
     lazy var timer = Timer()
 
     func setUpdateCallback(callback: @escaping (Int, Double) -> Void) {
         updateCallback = callback
+    }
+
+    func setDoneCallback(callback: @escaping () -> Void) {
+        doneCallback = callback
     }
 
     func start(minutes: Int) {
@@ -59,6 +64,7 @@ class CountdownTimer {
         let remaining = max(end - now, 0)
         let ratio = total == 0 ? 0 : Double(remaining) / Double(total)
         if remaining == 0 && end != 0 {
+            doneCallback()
             stop()
         }
         updateCallback(remaining, ratio)

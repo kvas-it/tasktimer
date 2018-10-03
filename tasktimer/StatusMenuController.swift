@@ -67,6 +67,19 @@ class StatusMenuController: NSObject {
         }
     }
 
+    func notifyDone () {
+        let notification = NSUserNotification()
+
+        notification.title = "Time's up!"
+        notification.subtitle = "The timer has completed"
+        notification.informativeText = ""
+        notification.contentImage = icon
+        notification.soundName = NSUserNotificationDefaultSoundName
+
+        NSUserNotificationCenter.default.deliver(notification)
+
+    }
+
     override func awakeFromNib() {
         icon.setOff()
         statusItem.image = icon
@@ -74,6 +87,7 @@ class StatusMenuController: NSObject {
         timer.setUpdateCallback(callback: {
             self.updateRemaining(seconds: $0, ratio: $1)
         })
+        timer.setDoneCallback(callback: self.notifyDone)
     }
 
 }
