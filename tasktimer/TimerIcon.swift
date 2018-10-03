@@ -10,52 +10,64 @@ import Cocoa
 
 class TimerIcon: NSImage {
 
+    static let origin = NSPoint.init(x: 0, y: 0)
+    static let center = NSPoint.init(x: 8, y: 8)
+    static let iconSize = NSSize(width: 16, height: 16)
+    static let boundingBox = NSRect.init(origin: origin, size: iconSize)
+    static let bboxPath = NSBezierPath.init(rect: boundingBox)
+    static let facePath = { () -> NSBezierPath in 
+        let fp = NSBezierPath(
+            ovalIn: NSRect.init(x: 0.5, y: 0.5, width: 15, height: 15)
+        )
+        fp.appendOval(
+                in: NSRect.init(x: 7, y: 7, width: 2, height: 2)
+        )
+        return fp;
+    }()
+    static let handPath = { () -> NSBezierPath in
+        let hp = NSBezierPath()
+        hp.move(to: TimerIcon.center)
+        hp.line(to: NSPoint.init(x: 15, y: 8))
+        return hp
+    }()
+
     convenience init() {
-        self.init(size: NSSize(width: 16, height: 16))
+        self.init(size: TimerIcon.iconSize)
         self.isTemplate = true // best for dark mode
     }
 
+    private func startDrawing() {
+        lockFocusFlipped(true)
+        NSGraphicsContext.saveGraphicsState()
+        NSGraphicsContext.current()?.cgContext.setBlendMode(CGBlendMode.clear)
+        TimerIcon.bboxPath.fill()
+        NSGraphicsContext.current()?.cgContext.setBlendMode(CGBlendMode.normal)
+        TimerIcon.facePath.stroke()
+    }
+
+    private func endDrawing() {
+        NSGraphicsContext.restoreGraphicsState()
+        unlockFocus()
+    }
+    
     func setOff() {
-        self.lockFocusFlipped(true)
-        let gctx = NSGraphicsContext.current()
-        gctx?.saveGraphicsState()
-        gctx?.shouldAntialias = true
-        gctx?.cgContext.setBlendMode(CGBlendMode.clear)
-        NSBezierPath.init(rect: NSRect.init(x: 0, y: 0, width: 16, height: 16)).fill()
-        gctx?.cgContext.setBlendMode(CGBlendMode.normal)
-        let center = NSPoint.init(x: 8, y: 8)
-        let path = NSBezierPath(ovalIn: NSRect.init(x: 0.5, y: 0.5, width: 15, height: 15))
-        path.move(to: center)
-        path.line(to: NSPoint.init(x: 8, y: 1))
-        path.appendOval(in: NSRect.init(x: 7, y: 7, width: 2, height: 2))
-        path.stroke()
-        gctx?.restoreGraphicsState()
-        self.unlockFocus()
+        startDrawing()
+        TimerIcon.handPath.stroke()
+        endDrawing()
     }
 
     func setOn(ratio: Double) {
-        self.lockFocusFlipped(true)
-        let gctx = NSGraphicsContext.current()
-        gctx?.saveGraphicsState()
-        gctx?.shouldAntialias = true
-        gctx?.cgContext.setBlendMode(CGBlendMode.clear)
-        NSBezierPath.init(rect: NSRect.init(x: 0, y: 0, width: 16, height: 16)).fill()
-        gctx?.cgContext.setBlendMode(CGBlendMode.normal)
-        let center = NSPoint.init(x: 8, y: 8)
-        let circle = NSBezierPath(ovalIn: NSRect.init(x: 0.5, y: 0.5, width: 15, height: 15))
-        circle.appendOval(in: NSRect.init(x: 7, y: 7, width: 2, height: 2))
-        circle.stroke()
+        startDrawing()
         let pie = NSBezierPath.init()
-        pie.move(to: center)
+        pie.move(to: TimerIcon.center)
         pie.appendArc(
-            withCenter: center,
+            withCenter: TimerIcon.center,
             radius: 8,
             startAngle: CGFloat(360 * ratio - 90.0),
             endAngle: 270
         )
-        pie.line(to: center)
+        pie.line(to: TimerIcon.center)
         pie.fill()
-        gctx?.restoreGraphicsState()
-        self.unlockFocus()
+        endDrawing()
     }
 }
