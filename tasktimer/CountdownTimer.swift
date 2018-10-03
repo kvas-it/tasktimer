@@ -10,18 +10,21 @@ import Foundation
 
 class CountdownTimer {
 
-    var remaining = 0
-    var updateCallback: (Int) -> Void = {_ in }
+    var end = 0
+    var total = 0
+    var updateCallback: (Int, Double) -> Void = {_ in }
     lazy var timer = Timer()
 
-    func setUpdateCallback(callback: @escaping (Int) -> Void) {
+    func setUpdateCallback(callback: @escaping (Int, Double) -> Void) {
         updateCallback = callback
     }
 
     func start(minutes: Int) {
         stop()
-        remaining = minutes * 60
-        updateCallback(remaining)
+        total = minutes * 60
+        let time = Int(Date().timeIntervalSince1970)
+        end = time + total
+        tick()
         timer = Timer.scheduledTimer(
             timeInterval: 1.0,
             target: self,
@@ -32,27 +35,32 @@ class CountdownTimer {
     }
 
     func stop() {
-        remaining = 0
+        end = 0
+        total = 0
         timer.invalidate()
-        updateCallback(remaining)
+        tick()
     }
 
     func adjust(minutes: Int) {
-        if remaining == 0 {
+        if end == 0 {
             if minutes > 0 {
                 start(minutes: minutes)
             }
         } else {
-            remaining += minutes * 60
-            updateCallback(remaining)
+            let seconds = minutes * 60
+            end += seconds
+            total += seconds
+            tick()
         }
     }
 
     @objc func tick() {
-        remaining -= 1
-        if (remaining <= 0) {
+        let now = Int(Date().timeIntervalSince1970)
+        let remaining = max(end - now, 0)
+        let ratio = total == 0 ? 0 : Double(remaining) / Double(total)
+        if remaining == 0 && end != 0 {
             stop()
         }
-        updateCallback(remaining)
+        updateCallback(remaining, ratio)
     }
 }

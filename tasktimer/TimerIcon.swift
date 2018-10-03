@@ -13,8 +13,9 @@ class TimerIcon: NSImage {
     static let origin = NSPoint.init(x: 0, y: 0)
     static let center = NSPoint.init(x: 8, y: 8)
     static let iconSize = NSSize(width: 16, height: 16)
-    static let boundingBox = NSRect.init(origin: origin, size: iconSize)
-    static let bboxPath = NSBezierPath.init(rect: boundingBox)
+    static let bboxPath = NSBezierPath.init(
+        rect: NSRect.init(origin: origin, size: iconSize)
+    )
     static let facePath = { () -> NSBezierPath in 
         let fp = NSBezierPath(
             ovalIn: NSRect.init(x: 0.5, y: 0.5, width: 15, height: 15)
@@ -63,7 +64,7 @@ class TimerIcon: NSImage {
         pie.appendArc(
             withCenter: TimerIcon.center,
             radius: 8,
-            startAngle: CGFloat(360 * ratio - 90.0),
+            startAngle: CGFloat(270 - 360 * ratio),
             endAngle: 270
         )
         pie.line(to: TimerIcon.center)

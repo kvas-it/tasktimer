@@ -12,8 +12,8 @@ class StatusMenuController: NSObject {
 
     @IBOutlet weak var statusMenu: NSMenu!
 
-    let icon = TimerIcon()
     let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    let icon = TimerIcon()
     var timer = CountdownTimer();
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
@@ -55,7 +55,7 @@ class StatusMenuController: NSObject {
         timer.stop()
     }
 
-    func updateRemaining(seconds: Int) {
+    func updateRemaining(seconds: Int, ratio: Double) {
         if (seconds == 0) {
             statusItem.title = ""
             icon.setOff()
@@ -63,7 +63,7 @@ class StatusMenuController: NSObject {
             let m = seconds / 60
             let s = seconds % 60
             statusItem.title = String(format: "%d:%02d  ", m, s)
-            icon.setOn(ratio: Double(120 - seconds) / 120.0)
+            icon.setOn(ratio: ratio)
         }
     }
 
@@ -71,7 +71,9 @@ class StatusMenuController: NSObject {
         icon.setOff()
         statusItem.image = icon
         statusItem.menu = statusMenu
-        timer.setUpdateCallback(callback: {self.updateRemaining(seconds: $0)})
+        timer.setUpdateCallback(callback: {
+            self.updateRemaining(seconds: $0, ratio: $1)
+        })
     }
 
 }
