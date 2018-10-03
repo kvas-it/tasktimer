@@ -12,6 +12,7 @@
 		A85B61D32163BDAC0036D982 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A85B61D12163BDAC0036D982 /* MainMenu.xib */; };
 		A85B61DB2163C0EB0036D982 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85B61DA2163C0EB0036D982 /* StatusMenuController.swift */; };
 		A85B61DD2163C36D0036D982 /* CountdownTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85B61DC2163C36D0036D982 /* CountdownTimer.swift */; };
+		A892CAD521644F7700EB6E8A /* TimerIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A892CAD421644F7700EB6E8A /* TimerIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		A85B61D42163BDAC0036D982 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A85B61DA2163C0EB0036D982 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		A85B61DC2163C36D0036D982 /* CountdownTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountdownTimer.swift; sourceTree = "<group>"; };
+		A892CAD421644F7700EB6E8A /* TimerIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerIcon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				A85B61D42163BDAC0036D982 /* Info.plist */,
 				A85B61DA2163C0EB0036D982 /* StatusMenuController.swift */,
 				A85B61DC2163C36D0036D982 /* CountdownTimer.swift */,
+				A892CAD421644F7700EB6E8A /* TimerIcon.swift */,
 			);
 			path = tasktimer;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A892CAD521644F7700EB6E8A /* TimerIcon.swift in Sources */,
 				A85B61DD2163C36D0036D982 /* CountdownTimer.swift in Sources */,
 				A85B61DB2163C0EB0036D982 /* StatusMenuController.swift in Sources */,
 				A85B61CE2163BDAC0036D982 /* AppDelegate.swift in Sources */,
@@ -290,6 +294,7 @@
 				A85B61D92163BDAC0036D982 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

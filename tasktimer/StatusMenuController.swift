@@ -12,6 +12,7 @@ class StatusMenuController: NSObject {
 
     @IBOutlet weak var statusMenu: NSMenu!
 
+    let icon = TimerIcon()
     let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     var timer = CountdownTimer();
 
@@ -57,16 +58,17 @@ class StatusMenuController: NSObject {
     func updateRemaining(seconds: Int) {
         if (seconds == 0) {
             statusItem.title = ""
+            icon.setOff()
         } else {
             let m = seconds / 60
             let s = seconds % 60
             statusItem.title = String(format: "%d:%02d  ", m, s)
+            icon.setOn(ratio: Double(120 - seconds) / 120.0)
         }
     }
 
     override func awakeFromNib() {
-        let icon = NSImage(named: "StatusIcon")
-        icon?.isTemplate = true // best for dark mode
+        icon.setOff()
         statusItem.image = icon
         statusItem.menu = statusMenu
         timer.setUpdateCallback(callback: {self.updateRemaining(seconds: $0)})
